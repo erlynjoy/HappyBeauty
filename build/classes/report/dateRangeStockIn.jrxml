@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dateRangeStockIn" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.100000000000001"/>
+	<property name="ireport.x" value="74"/>
+	<property name="ireport.y" value="55"/>
+	<queryString>
+		<![CDATA[Select p_name, p_brand, p_cost, SUM(added_by.qty_in), c_stock, (p_cost*(SUM(added_by.qty_in))), date_in from product JOIN added_by ON product.p_barcode=added_by.Abarcode where ((date_in!='0') AND (date_in BETWEEN '"+setDate1.getText()+"' AND '"+setDate2.getText()+"')) group by p_name]]>
+	</queryString>
+	<field name="p_name" class="java.lang.String"/>
+	<field name="p_brand" class="java.lang.String"/>
+	<field name="p_cost" class="java.lang.String"/>
+	<field name="SUM(added_by.qty_in)" class="java.lang.Double"/>
+	<field name="c_stock" class="java.lang.String"/>
+	<field name="(p_cost*(SUM(added_by.qty_in)))" class="java.lang.Double"/>
+	<field name="date_in" class="java.lang.String"/>
+	<variable name="total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{(p_cost*(SUM(added_by.qty_in)))}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="45" splitType="Stretch">
+			<rectangle>
+				<reportElement x="286" y="0" width="289" height="36" backcolor="#D29C32"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="575" y="0" width="177" height="36" forecolor="#FFFFFF" backcolor="#D29C32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVENTORY REPORT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="286" height="36" forecolor="#FFFFFF" backcolor="#D29C32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[HAPPYBEAUTY PHILIPPINES, INC.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="752" height="31" forecolor="#D29C32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STOCK IN]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="631" y="0" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COGS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="0" width="150" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Product name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="0" width="120" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Brand]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="524" y="0" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Available stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cost]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="0" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="32" y="0" width="150" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{p_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="0" width="120" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{p_brand}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{p_cost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUM(added_by.qty_in)}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="524" y="0" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c_stock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="631" y="0" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{(p_cost*(SUM(added_by.qty_in)))}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="10" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="400" splitType="Stretch">
+			<staticText>
+				<reportElement x="32" y="0" width="100" height="20" forecolor="#FF0033"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="631" y="0" width="12" height="20" forecolor="#FF0033"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[₱]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="647" y="0" width="91" height="20" forecolor="#FF0033"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
